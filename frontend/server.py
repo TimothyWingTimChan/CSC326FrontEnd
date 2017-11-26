@@ -1,8 +1,6 @@
 from bottle import route, run, request, response, redirect, app, hook
 from bottle import static_file
 from bottle import template
-from oauth2client.client import flow_from_clientsecrets, OAuth2WebServerFlow
-from googleapiclient.discovery import build
 from beaker.middleware import SessionMiddleware
 import bottle
 import pickle
@@ -19,9 +17,6 @@ session_opts = {
 	'session.validate_key': True
 }
 
-flow = flow_from_clientsecrets('google_secret/google_client_secrets.json',
-                                    scope = ['https://www.googleapis.com/auth/plus.me', 'https://www.googleapis.com/auth/plus.profile.emails.read'],
-                                    redirect_uri = 'http://0.0.0.0:80/oauth2callback')
 
 main_app = SessionMiddleware(bottle.app(), session_opts)
 
@@ -71,9 +66,6 @@ def redirect_page():
     session = request.environ.get('beaker.session')
     # get the authorization code and using the authorization code retrieve the credentials
     code = request.query.get('code', '')
-    credentials = flow.step2_exchange(code)
-    # store the credentials
-    local_credentials[session['_id']] = credentials
     # store the access token
     storeAccessToken(credentials)
     # store the user information
@@ -81,52 +73,6 @@ def redirect_page():
     # redirect to home
     redirect('/')
 
-@route('/login')
-def login():
-    # login through Google OAuth2.0
-    session = request.environ.get('beaker.session')
-    # set up session var for the login state 
-    if not 'logged_in' in session:
-        session['logged_in'] = True
-    elif session['logged_in'] == True:
-
-        if session['_id'] in local_store:
-            
-            # if logged in check for the token expiration and if expired refresh token
-            if session['_id'] in local_credentials and local_credentials[session['_id']].access_token_expired:
-                google_access_token = local_credentials[session['_id']].get_access_token()
-                local_store[session['_id']] = google_access_token 
-                session['access_token'] = google_access_token
-
-            # compare tokens
-            server_token = local_store[session['_id']][0][0]
-            client_token = session['access_token'][0] 
-
-            # redirect if tokens are valid, logout if not valid 
-            if server_token == client_token:
-                redirect('/')
-            else:
-                redirect('/logout')
-            return
-
-    # redirect to the Google OAuth2.0 url
-    uri = flow.step1_get_authorize_url()
-    redirect(str(uri))
-
-@route('/logout')
-def logout():
-    session  = request.environ.get('beaker.session')
-    # delete saved status of each user before logging out
-    if session['_id'] in local_credentials:
-        del local_credentials[session['_id']]
-    if session['_id'] in local_store:
-        del local_store[session['_id']]
-    session.invalidate()
-    # reset the variables
-    name = None
-    email = None
-    user_name = None
-    redirect('/')
 
 @route('/')
 def home():
@@ -136,7 +82,6 @@ def home():
 	session = request.environ.get('beaker.session')
 	if session['_id'] in local_credentials:
 		# retrieve the name and email from the Google Plus API
-		plus = build('plus', 'v1', credentials= local_credentials[session['_id']])
 		plus_details = plus.people().get(userId='me').execute()
 		name = str(plus_details['name']['givenName']) + " " + str(plus_details['name']['familyName']) 
 		email = str(plus_details['emails'][0]['value'])
@@ -261,6 +206,6 @@ def home():
 	else:
 		# output start page if there is no table to be displayed
 		#return getHtmlfile()
-		return template('index_initial.tpl',user_name = name, user_email = email)
+		return template('index_initial.tpl',user_name = name, user_email = email, picture="csc326-logo.png")
 
 run(app=main_app, host='0.0.0.0', port=80, debug=True)

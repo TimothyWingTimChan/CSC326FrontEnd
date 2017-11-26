@@ -3,7 +3,6 @@
 
 <head>
 <title>TTTSearch</title>
-	<base href="http://localhost:8080/">
 <meta charset="UTF-8">
 <style>
 #signout {
@@ -128,8 +127,8 @@ p1 {
 <body>
 
 <title>TTTSearch</title>
-<a href="localhost:8080">
-<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
+<a href="/">
+<img src="/public/{{picture}}" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
 </a>
 <form name="search" action="/" method="get">
 	<input type="text" name="keywords" placeholder="Search me up">

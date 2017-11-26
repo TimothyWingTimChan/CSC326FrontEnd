@@ -3,7 +3,6 @@
 
 <head>
 <title>TTTSearch</title>
-	<base href="http://localhost:8080/">
 <meta charset="UTF-8">
 <style>
 #image_pos {
@@ -163,7 +162,7 @@ td2 {
 <div id="background">
 <div id = "image_pos">
 	<div id = "logo">
-		<a href="localhost:8080">
+		<a href="/">
 		<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:225px;height:80px">
 		</a>
 	</div>
