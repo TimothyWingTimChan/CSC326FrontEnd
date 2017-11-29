@@ -28,9 +28,9 @@ session_opts = {
 	'session.validate_key': True
 }
 
-flow = flow_from_clientsecrets('google_secret/google_client_secrets.json',
-                                    scope = ['https://www.googleapis.com/auth/plus.me', 'https://www.googleapis.com/auth/plus.profile.emails.read'],
-                                    redirect_uri = 'http://localhost:8080/oauth2callback')
+# flow = flow_from_clientsecrets('google_secret/google_client_secrets.json',
+#                                    scope = ['https://www.googleapis.com/auth/plus.me', 'https://www.googleapis.com/auth/plus.profile.emails.read'],
+#                                    redirect_uri = 'http://localhost:8080/oauth2callback')
 
 main_app = SessionMiddleware(bottle.app(), session_opts)
 

@@ -3,7 +3,6 @@
 
 <head>
 <title>TTTSearch</title>
-	<base href="http://0.0.0.0:80/">
 <meta charset="UTF-8">
 <style>
 #error_page {
