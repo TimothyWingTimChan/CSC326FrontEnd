@@ -3,9 +3,16 @@
 
 <head>
 <title>TTTSearch</title>
-	<base href="http://localhost:8080/">
 <meta charset="UTF-8">
 <style>
+#search_items {
+	position: absolute;
+	width: 450px;
+	height: 300px;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-40%);
+}
 #signout {
 	position: absolute;
 	float: right;
@@ -22,13 +29,11 @@
 img {
 	position: relative;
 	margin-top: 10%;
-	top: 0;
-	left: 39%;
-	right: 0;
-	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%)
 }
 input[type=submit] {
-	width: 53%;
+	width: 100%;
 	max-width: 525px;
 	min-width: 325px;
 	height: 35px;
@@ -42,7 +47,7 @@ input[type=submit] {
 	position: relative;
 	margin: auto;
 	top: 0;
-	left: 36%;
+	left: 0%;
 	right: 0;
 	bottom: 30px;
 }
@@ -61,8 +66,8 @@ input[type=submit]#login_out {
 	font-size: 10px;
 }
 input[type=text], select {
-	width: 50%;
-	max-width: 500px;
+	width: 100%;
+	max-width: 430px;
 	min-width: 300px;
 	height: 30px;
 	padding: 1px 10px;
@@ -71,8 +76,8 @@ input[type=text], select {
 	position: relative;
 	margin: auto;
 	top: 0;
-	left: 36%;
-	right: 0;
+	left: 0%;
+	right: 50px;
 	bottom: 0%;
 	font-family: helvetica;
 }
@@ -128,14 +133,16 @@ p1 {
 <body>
 
 <title>TTTSearch</title>
-<a href="localhost:8080">
-<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
-</a>
-<form name="search" action="/" method="get">
-	<input type="text" name="keywords" placeholder="Search me up">
-	<br>
-	<input type="submit" value="Search">
-</form>
+<div id="search_items">
+	<a href="/">
+		<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
+	</a>
+	<form name="search" action="/" method="get">
+		<input type="text" name="keywords" placeholder="Search me up">
+		<br>
+		<input type="submit" value="Search">
+	</form>
+</div>
 <div id="background">
 	<div id = "image_pos">
 	%if user_name is not None:

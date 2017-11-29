@@ -3,6 +3,7 @@
 
 <head>
 <title>TTTSearch</title>
+	<base href="http://localhost:8080/">
 <meta charset="UTF-8">
 <style>
 #image_pos {
@@ -212,7 +213,7 @@ td2 {
 <div id="background">
 <div id = "image_pos">
 	<div id = "logo">
-		<a href="/">
+		<a href="http://localhost:8080">
 		<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:225px;height:80px">
 		</a>
 	</div>
@@ -225,4 +226,28 @@ td2 {
 %end
 			<br>
 			<div id="background_bot">
-
+			</div>
+			<input type="submit" value="Search">
+		</form>
+	</div>
+%if user_name is not None:
+	<div id = "signout">
+		<form action="/logout">
+			<input id="login_out" type="submit" name="signout" value="Sign out">
+		</form>
+	</div>
+	<div id = "user_info">
+		<td2>{{user_name}}</td2>
+		<td1>{{user_email}}</td1>
+	</div>
+%else:
+	<div id = "signout">
+		<form action="/login">
+			<input id="login_out" type="submit" name="signin" value="Sign in">
+		</form>
+	</div>
+%end
+</div>
+</div>
+</body>
+</html>
