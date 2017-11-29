@@ -4,6 +4,8 @@
 <head>
 <title>TTTSearch</title>
 <meta charset="UTF-8">
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
 <style>
 #search_items {
 	position: absolute;
@@ -29,7 +31,7 @@
 img {
 	position: relative;
 	margin-top: 10%;
-	left: 50%;
+	/*left: 50%;*/
 	transform: translateX(-50%)
 }
 input[type=submit] {
@@ -134,11 +136,11 @@ p1 {
 
 <title>TTTSearch</title>
 <div id="search_items">
-	<a href="/">
-		<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
+	<a id="logo" href="/">
+		<img class="animated fadeInDown" src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
 	</a>
 	<form name="search" action="/" method="get">
-		<input type="text" name="keywords" placeholder="Search me up">
+		<input type="text" name="keywords" placeholder="Search me up" autocomplete="on">
 		<br>
 		<input type="submit" value="Search">
 	</form>

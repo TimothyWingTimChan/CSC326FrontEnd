@@ -94,24 +94,24 @@ def redirect_page():
 def login():
     # login through Google OAuth2.0
     session = request.environ.get('beaker.session')
-    # set up session var for the login state 
+    # set up session var for the login state
     if not 'logged_in' in session:
         session['logged_in'] = True
     elif session['logged_in'] == True:
 
         if session['_id'] in local_store:
-            
+
             # if logged in check for the token expiration and if expired refresh token
             if session['_id'] in local_credentials and local_credentials[session['_id']].access_token_expired:
                 google_access_token = local_credentials[session['_id']].get_access_token()
-                local_store[session['_id']] = google_access_token 
+                local_store[session['_id']] = google_access_token
                 session['access_token'] = google_access_token
 
             # compare tokens
             server_token = local_store[session['_id']][0][0]
-            client_token = session['access_token'][0] 
+            client_token = session['access_token'][0]
 
-            # redirect if tokens are valid, logout if not valid 
+            # redirect if tokens are valid, logout if not valid
             if server_token == client_token:
                 redirect('/')
             else:
@@ -151,14 +151,14 @@ def home():
 		# retrieve the name and email from the Google Plus API
 		plus = build('plus', 'v1', credentials= local_credentials[session['_id']])
 		plus_details = plus.people().get(userId='me').execute()
-		name = str(plus_details['name']['givenName']) + " " + str(plus_details['name']['familyName']) 
+		name = str(plus_details['name']['givenName']) + " " + str(plus_details['name']['familyName'])
 		email = str(plus_details['emails'][0]['value'])
 		user_name = email
-	# create a global dictionary, h, to contain the count history of every word	
+	# create a global dictionary, h, to contain the count history of every word
 	global saved_h
 	global h
 	global most_recent
-	
+
 	# this part of code simply uses pickle to store search history for unique users
 	# it stores this: {'user1' : 'history_of_user1', 'user2' : 'history_of_user2'}
 	# change user_name for unique user id
@@ -203,7 +203,7 @@ def home():
 	# request to get the value 'keywords' from HTML
 	if (request.params.get('keywords')) :
 		searchstring = request.params.get('keywords')
-	
+
 		# change all input to lowercase
 		searchstring = searchstring.lower()
 		string_to_list = searchstring.split()
@@ -240,10 +240,10 @@ def home():
 			if len(mr) > 20:
 				mr = mr[:-1]
 			mr = [word] + mr
-	
+
 	# display the searched string
 	html_searched_string = "<p1>Search for \"<i>" + searchstring + "</i>\"</p1>"
-	
+
 	# display the history
 	html_top_20 = "<p1>Top 20 Searched Words</p1>"
 	h_top = sorted(h, key=lambda x:x[1], reverse=True)[:20]
@@ -269,9 +269,9 @@ def home():
 
 	#=====================================================================================================
 	# Lab 3 Fetching from Database implementation
-	
+
 	# fetch 3 dictionaries here
-	# dict_find_word is the input of the list of urls to print 
+	# dict_find_word is the input of the list of urls to print
 	# first_word is the first_word of input string - already exists
 	# word_id = function(first_word)
 	# dict_url = function(word_id)
@@ -301,17 +301,17 @@ def home():
 	dict_rank = []
 	with open('scores.json', 'r') as f:
 		for item in f:
-			item = json.loads(item) 
+			item = json.loads(item)
 			dict_rank.append(item)
 	print dict_rank
 
 	dict_doc_id = []
 	with open('document_index.json', 'r') as f:
 		for item in f:
-			item = json.loads(item) 
+			item = json.loads(item)
 			dict_doc_id.append(item)
 	print dict_doc_id
-	
+
 	dict_combined = []
 
 	'''
@@ -337,12 +337,12 @@ def home():
 			for temp_dict in dict_doc_id :
 				if temp_dict['doc_id'] == item['doc_id'] and item['doc_id'] in dict_url_list:
 					dict_combined.append(temp_dict['url'])
-	
+
 		# reverse the array
 		dict_combined = list(reversed(dict_combined))
 
-		html_pages = ''	
-	
+		html_pages = ''
+
 		# if length is greater than max_url_len
 		# implement static pagination
 		#page_no = int(request.params.get('page_no'))
@@ -352,14 +352,14 @@ def home():
 			page_no = 1;
 
 		if (len(dict_url_list) > max_url_len) :
-			page_num,past_page_num = divmod(len(dict_combined),max_url_len)		
+			page_num,past_page_num = divmod(len(dict_combined),max_url_len)
 			if past_page_num != 0 :
 				page_num += 1
 
 			html_pages = '<form id="search" action="/" method="get"><div id="content_bot"><div id="page_div" align="center"><div class="pagination">'
 			for page in range(page_num) :
 				# this section of code prints maximum 10 pages and when page_no is moved, it moves the pages in the same direction
-				if page+1 > page_no + 5:		
+				if page+1 > page_no + 5:
 					pass
 				elif page+1 < page_no - 5:
 					pass
@@ -375,12 +375,12 @@ def home():
 		#=====================================================================================================
 		# print the actual content of dict_combined
 		# page_no is given and is used to print the correct urls
-		page,last_page_num = divmod(len(dict_combined),max_url_len)	
+		page,last_page_num = divmod(len(dict_combined),max_url_len)
 
 		if last_page_num != 0:
 			page += 1
 
-		if page_no > page :	
+		if page_no > page :
 			return error404(404)
 
 		url_print = ""
@@ -395,20 +395,20 @@ def home():
 			for i in range(max_url_len):
 				url_print = dict_combined[max_url_len*(page_no-1)+i]
 				html_url += '<p2><a href="' + url_print + '">' + url_print + '</a></p2></br></br>'
-	
+
 		html_url += '</div>'
 		#=====================================================================================================
 	else :
 		html_url = '<div id="content"><p2>No results found</a></div>'
 
-	
+
 	# if there is a searched string, then output the page with tables
 	if len(searchstring):
 		#=====================================================================================================
 		# remove the searched & history table temporarily for lab 3
-		
+
 		#if name is not None:
-		#	return template('index_search.tpl',user_name = name, user_email = email) + "<div id=content>" + html_pages + html_searched_string + dic_to_table(d, 'results') + "<br>" + html_top_20 + dic_to_table(h_top, 'history') + "<br>" + html_most_recent + list_to_table(mr,'results') + "</div>" 
+		#	return template('index_search.tpl',user_name = name, user_email = email) + "<div id=content>" + html_pages + html_searched_string + dic_to_table(d, 'results') + "<br>" + html_top_20 + dic_to_table(h_top, 'history') + "<br>" + html_most_recent + list_to_table(mr,'results') + "</div>"
 		#else:
 		#	return template('index_search.tpl',user_name = name, user_email = email) + "<div id=content>" + html_pages + html_searched_string + dic_to_table(d, 'results') + "<br>"
 		#=====================================================================================================
@@ -416,10 +416,11 @@ def home():
 			return template('index_search.tpl',user_name = name, user_email = email, searched_string = searchstring, page_no = page_no) + html_pages + template('index_search_end.tpl',user_name = name, user_email = email, searched_string = searchstring, page_no = page_no) + html_url
 		else :
 			return template('index_search_nopage.tpl',user_name = name, user_email = email, searched_string = searchstring) + html_url
-			
+
 	else:
 		# output start page if there is no table to be displayed
 		#return getHtmlfile()
 		return template('index_initial.tpl',user_name = name, user_email = email)
 
-run(app=main_app, host='0.0.0.0', port=80, debug=True)
+# run(app=main_app, host='0.0.0.0', port=80, debug=True)
+run(app=main_app, host='localhost', port=8080, debug=True)
