@@ -133,16 +133,16 @@ p1 {
 <body>
 
 <title>TTTSearch</title>
-<div id="search_items">
-	<a href="/">
-		<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
-	</a>
-	<form name="search" action="/" method="get">
-		<input type="text" name="keywords" placeholder="Search me up">
-		<br>
-		<input type="submit" value="Search">
-	</form>
-</div>
+
+<a href="/">
+<img src="/public/{{picture}}" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
+</a>
+<form name="search" action="/" method="get">
+	<input type="text" name="keywords" placeholder="Search me up">
+	<br>
+	<input type="submit" value="Search">
+</form>
+
 <div id="background">
 	<div id = "image_pos">
 	%if user_name is not None:

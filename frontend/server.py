@@ -1,9 +1,6 @@
 from bottle import route, run, request, response, redirect, app, hook
 from bottle import static_file
 from bottle import template
-from bottle import error
-#from oauth2client.client import flow_from_clientsecrets, OAuth2WebServerFlow
-#from googleapiclient.discovery import build
 from beaker.middleware import SessionMiddleware
 import bottle
 import pickle
@@ -28,9 +25,6 @@ session_opts = {
 	'session.validate_key': True
 }
 
-#flow = flow_from_clientsecrets('google_secret/google_client_secrets.json',
-                                    scope = ['https://www.googleapis.com/auth/plus.me', 'https://www.googleapis.com/auth/plus.profile.emails.read'],
-                                    redirect_uri = 'http://localhost:8080/oauth2callback')
 
 main_app = SessionMiddleware(bottle.app(), session_opts)
 
@@ -81,9 +75,6 @@ def redirect_page():
     session = request.environ.get('beaker.session')
     # get the authorization code and using the authorization code retrieve the credentials
     code = request.query.get('code', '')
-    credentials = flow.step2_exchange(code)
-    # store the credentials
-    local_credentials[session['_id']] = credentials
     # store the access token
     storeAccessToken(credentials)
     # store the user information
@@ -150,7 +141,7 @@ def home():
 	session = request.environ.get('beaker.session')
 	if session['_id'] in local_credentials:
 		# retrieve the name and email from the Google Plus API
-		# plus = build('plus', 'v1', credentials= local_credentials[session['_id']])
+
 		plus_details = plus.people().get(userId='me').execute()
 		name = str(plus_details['name']['givenName']) + " " + str(plus_details['name']['familyName']) 
 		email = str(plus_details['emails'][0]['value'])
@@ -421,6 +412,6 @@ def home():
 	else:
 		# output start page if there is no table to be displayed
 		#return getHtmlfile()
-		return template('index_initial.tpl',user_name = name, user_email = email)
+		return template('index_initial.tpl',user_name = name, user_email = email, picture="csc326-logo.png")
 
 run(app=main_app, host='0.0.0.0', port=8080, debug=True)
