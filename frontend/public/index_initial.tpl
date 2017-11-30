@@ -6,6 +6,12 @@
 <meta charset="UTF-8">
 <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  crossorigin="anonymous"></script>
 <style>
 #search_items {
 	position: absolute;
@@ -140,7 +146,7 @@ p1 {
 		<img class="animated fadeInDown" src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
 	</a>
 	<form name="search" action="/" method="get">
-		<input type="text" name="keywords" placeholder="Search me up" autocomplete="on">
+		<input id="search_bar" type="text" name="keywords" placeholder="Search me up" autocomplete="on">
 		<br>
 		<input type="submit" value="Search">
 	</form>
@@ -166,5 +172,13 @@ p1 {
 	%end
 	</div>
 </div>
+<script>
+$(function() {
+  $('#search_bar').autocomplete({
+        source: "/get_words",
+        minLength: 2
+    });
+});
+</script>
 </body>
 </html>

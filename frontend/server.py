@@ -1,7 +1,7 @@
 from bottle import route, run, request, response, redirect, app, hook
 from bottle import static_file
 from bottle import template
-from bottle import error
+from bottle import error, HTTPResponse
 #from oauth2client.client import flow_from_clientsecrets, OAuth2WebServerFlow
 #from googleapiclient.discovery import build
 from beaker.middleware import SessionMiddleware
@@ -16,6 +16,7 @@ import json
 # max number of url per page
 max_url_len = 5
 searchstring = ""
+words_list = []
 
 bottle.TEMPLATE_PATH.insert(0, './public')
 
@@ -140,6 +141,20 @@ def logout():
 @error(404)
 def error404(error):
 	return template('error.tpl')
+
+@route('/get_words')
+def get_drugs():
+	# print '\n'
+	# print request.query.term
+	input_terms = request.query.term
+	# print request.headers # you seem to want a JSON response
+	# theBody = json.dumps({'hello': 'world'}) # you seem to want a JSON response
+	# return bottle.HTTPResponse(status=300, body=theBody)
+	matching_words = []
+	if input_terms != '':
+		matching_words = filter(lambda x: x.startswith(input_terms), words_list)
+		# print matching_words
+	return json.dumps(matching_words)
 
 @route('/')
 def home():
@@ -278,39 +293,44 @@ def home():
 	with open('lexicon.json', 'r') as f:
 		for item in f:
 			item = json.loads(item)
+
+			#add words to words_list
+			if not item["word"] in words_list:
+				words_list.append(item["word"])
+
 			if item["word"]== first_word:
-				print first_word
+				# print first_word
 				keyword_id = item["word_id"]
 				break
 			else:
 				keyword_id = -1
-	print keyword_id
+	# print keyword_id
 
 	with open('inverted_index.json', 'r') as f:
 		for item in f:
 			item = json.loads(item)
-			print type(keyword_id)
+			# print type(keyword_id)
 			if item["word_id"]== keyword_id:
 				dict_url_list = item["url_list"]
-				print dict_url_list
+				# print dict_url_list
 				break
 			else:
 				dict_url_list = []
-	print dict_url_list
+	# print dict_url_list
 
 	dict_rank = []
 	with open('scores.json', 'r') as f:
 		for item in f:
 			item = json.loads(item)
 			dict_rank.append(item)
-	print dict_rank
+	# print dict_rank
 
 	dict_doc_id = []
 	with open('document_index.json', 'r') as f:
 		for item in f:
 			item = json.loads(item)
 			dict_doc_id.append(item)
-	print dict_doc_id
+	# print dict_doc_id
 
 	dict_combined = []
 

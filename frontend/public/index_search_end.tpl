@@ -21,5 +21,13 @@
 %end
 </div>
 </div>
+<script>
+$(function() {
+	$('#search_bar').autocomplete({
+		source: '/get_words',
+		minLength: 2
+	});
+});
+</script>
 </body>
 </html>
