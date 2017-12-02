@@ -3,15 +3,17 @@
 
 <head>
 <title>TTTSearch</title>
+	<base href="http://localhost:8080/">
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script
-  src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-  integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-  crossorigin="anonymous"></script>
+			href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+			integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+			crossorigin="anonymous"></script>
 <style>
 #search_items {
 	position: absolute;
@@ -40,14 +42,32 @@ img {
 	/*left: 50%;*/
 	transform: translateX(-50%)
 }
-input[type=submit] {
+input[type=submit]{
 	width: 100%;
-	max-width: 525px;
+	max-width: 410px;
 	min-width: 325px;
 	height: 35px;
 	background-color: #3b8686;
 	color: white;
 	padding: 7px 10px;
+	margin: auto;
+	border: 3px solid white;
+	border-radius: 10px;
+	cursor: pointer;
+	position: relative;
+	margin: auto;
+	top: 0;
+	left: 0%;
+	right: 0;
+	bottom: 30px;
+}
+button {
+	width: 10%;
+	max-width: 35px;
+	min-width: 0px;
+	height: 35px;
+	/*color: #3b8686;*/
+	padding: 1px 2px;
 	margin: auto;
 	border: 3px solid white;
 	border-radius: 10px;
@@ -135,6 +155,10 @@ p1 {
 	height: 13%;
 	background-color: transparent;
 }
+.material-icons {
+	vertical-align: middle !important;
+	color: #3b8686;
+}
 </style>
 </head>
 
@@ -142,14 +166,17 @@ p1 {
 
 <title>TTTSearch</title>
 <div id="search_items">
-	<a id="logo" href="/">
+	<a href="localhost:8080">
 		<img class="animated fadeInDown" src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
 	</a>
 	<form name="search" action="/" method="get">
-		<input id="search_bar" type="text" name="keywords" placeholder="Search me up" autocomplete="on">
-		<br>
+		<input id="transcription" type="text" name="keywords" placeholder="Search me up">
+		<!-- <button id="button-play-ws" type="button"><i class="material-icons">mic</i>Speech To Text</button> -->
+		<!-- <br> -->
 		<input type="submit" value="Search">
+		<button id="button-play-ws" type="button"><i class="material-icons">mic</i></button>
 	</form>
+
 </div>
 <div id="background">
 	<div id = "image_pos">
@@ -172,13 +199,91 @@ p1 {
 	%end
 	</div>
 </div>
-<script>
+<script type="text/javascript">
+
+var final_transcript = '';
+var recognizing = false;
+var ignore_onend;
+var start_timestamp;
+
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (window.SpeechRecognition === null) {
+	alert("Speech Recognition cannot be started");
+} else {
+	var recognition = new window.SpeechRecognition();
+	var transcription = document.getElementById('transcription');
+	var log = document.getElementById('log');
+
+	recognition.continuous = true;
+	recognition.interimResults = true;
+
+	recognition.onstart = function () {
+		recognizing = true;
+	};
+
+	recognition.onerror = function (event) {
+		if (event.error === 'no-speech') {
+			ignore_onend = true;
+		}
+		if (event.error === 'audio-capture') {
+			ignore_onend = true;
+		}
+		if (event.error === 'not-allowed') {
+			if (event.timeStamp - start_timestamp < 100) {
+				//do nothing
+			}
+			ignore_onend = true;
+		}
+		alert('Speech Recognition error!');
+	};
+
+	recognition.onend = function () {
+		recognizing = false;
+		if (ignore_onend) {
+			return;
+		}
+	};
+
+	recognition.onresult = function (event) {
+		var final = "";
+		var interim = "";
+		for (var i = 0; i < event.results.length; i++) {
+			if (event.results[i].isFinal) {
+				final += event.results[i][0].transcript;
+			} else {
+				interim += event.results[i][0].transcript;
+			}
+		}
+		document.getElementById('transcription').value = final;
+	};
+
+	var speech_on = true;
+	document.getElementById('button-play-ws').addEventListener('click', function()
+	{
+		if (speech_on === true) {
+			try {
+				recognition.start();
+				document.getElementsByClassName('material-icons')[0].style.color = '#e60303';
+			} catch (ex) {
+				alert("Error occurred when starting Speech Recognition");
+			}
+		} else {
+			recognition.stop();
+			document.getElementsByClassName('material-icons')[0].style.color = '#3b8686';
+			// transcription.innerHTML = '';
+		}
+		speech_on = !speech_on;
+	});
+}
+
 $(function() {
-  $('#search_bar').autocomplete({
-        source: "/get_words",
-        minLength: 2
-    });
+	$('#transcription').autocomplete({
+		source: "/get_words",
+		minLength: 2
+	});
 });
 </script>
 </body>
 </html>
+<!-- https://www.sitepoint.com/introducing-web-speech-api/ -->

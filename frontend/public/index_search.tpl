@@ -3,13 +3,15 @@
 
 <head>
 <title>TTTSearch</title>
+	<base href="http://localhost:8080/">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	      rel="stylesheet">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+  			integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+  			crossorigin="anonymous"></script>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script
-src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
-integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
-crossorigin="anonymous"></script>
 <style>
 #image_pos {
 	position: relative;
@@ -82,7 +84,7 @@ crossorigin="anonymous"></script>
 	right: 50px;
 }
 input[type=submit] {
-	width: 53%;
+	width: 47.5%;
 	max-width: 525px;
 	min-width: 325px;
 	height: 35px;
@@ -96,6 +98,20 @@ input[type=submit] {
 	cursor: pointer;
 	position: absolute;
 	top: 40px;
+}
+button {
+	width: 3%;
+	max-width: 525px;
+	min-width: 0px;
+	height: 35px;
+	background-color: #f0f0f0;
+	padding: 1px 0px;
+	margin: auto;
+	border: 3px solid #f0f0f0;
+	cursor: pointer;
+	position: absolute;
+	top: 40px;
+	left: 490px;
 }
 input[type=submit]#login_out {
 	max-width: 50px;
@@ -218,16 +234,16 @@ td2 {
 <div id="background">
 <div id = "image_pos">
 	<div id = "logo">
-		<a href="/">
+		<a href="http://localhost:8080">
 		<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:225px;height:80px">
 		</a>
 	</div>
 	<div id = "searchbox_pos">
 		<form id="search" action="/" method="get">
 %if searched_string == None :
-			<input id="search_bar" type="text" name="keywords" placeholder="Search me up">
+			<input id="transcription" type="text" name="keywords" placeholder="Search me up">
 %else :
-			<input id="search_bar" type="text" name="keywords" value="{{searched_string}}">
+			<input id="transcription" type="text" name="keywords" value="{{searched_string}}">
 %end
 			<br>
 			<div id="background_bot">
