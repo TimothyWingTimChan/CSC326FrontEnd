@@ -60,7 +60,7 @@ input[type=submit] {
 	right: 0;
 	bottom: 30px;
 }
-button {
+#button-play-ws {
 	width: 10%;
 	max-width: 35px;
 	min-width: 0px;

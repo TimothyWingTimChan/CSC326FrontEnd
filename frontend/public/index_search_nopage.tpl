@@ -121,7 +121,7 @@ input[type=submit] {
 	position: absolute;
 	top: 40px;
 }
-button {
+#button-play-ws {
 	width: 3%;
 	max-width: 525px;
 	min-width: 0px;
