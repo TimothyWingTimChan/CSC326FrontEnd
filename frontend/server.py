@@ -144,17 +144,14 @@ def error404(error):
 
 @route('/get_words')
 def get_suggestion_words():
-	# print '\n'
-	# print request.query.term
-	input_terms = request.query.term
-	# print request.headers # you seem to want a JSON response
-	# theBody = json.dumps({'hello': 'world'}) # you seem to want a JSON response
-	# return bottle.HTTPResponse(status=300, body=theBody)
+	input_terms = request.query.term #gets the input value from the query parameters
+	input_terms = input_terms.lower() #converts the input value to lower cases
+
 	matching_words = []
-	if input_terms != '':
+	if input_terms != '': #searches for the strings beginning with matching substrings
 		matching_words = filter(lambda x: x.startswith(input_terms), words_list)
-		# print matching_words
-	return json.dumps(matching_words)
+
+	return json.dumps(matching_words) #returns the list in json format
 
 @route('/')
 def home():
