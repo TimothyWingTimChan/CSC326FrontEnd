@@ -29,7 +29,7 @@ img {
 <title>TTTSearch</title>
 <div id='error_page'>
 	<a href="/">
-		<img src="/public/error.png" alt="ERROR IMAGE NOT FOUND" style="width:200px;height:200px">
+		<img src="/static/error.png" alt="ERROR IMAGE NOT FOUND" style="width:200px;height:200px">
 	</a>
 	<p1>Uh oh, something went wrong. Let's take you to a safe place<p1></br></br></br>
 	<a href="/">Click here to go home</a>

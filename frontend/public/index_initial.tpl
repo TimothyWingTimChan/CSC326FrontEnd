@@ -38,35 +38,17 @@
 img {
 	position: relative;
 	margin-top: 10%;
-	/*left: 50%;*/
+	left: 50%;
 	transform: translateX(-50%)
 }
-input[type=submit]{
+input[type=submit] {
 	width: 100%;
-	max-width: 410px;
+	max-width: 525px;
 	min-width: 325px;
 	height: 35px;
 	background-color: #3b8686;
 	color: white;
 	padding: 7px 10px;
-	margin: auto;
-	border: 3px solid white;
-	border-radius: 10px;
-	cursor: pointer;
-	position: relative;
-	margin: auto;
-	top: 0;
-	left: 0%;
-	right: 0;
-	bottom: 30px;
-}
-button {
-	width: 10%;
-	max-width: 35px;
-	min-width: 0px;
-	height: 35px;
-	/*color: #3b8686;*/
-	padding: 1px 2px;
 	margin: auto;
 	border: 3px solid white;
 	border-radius: 10px;
@@ -166,7 +148,7 @@ p1 {
 <title>TTTSearch</title>
 <div id="search_items">
 	<a href="/">
-		<img class="animated fadeInDown" src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
+		<img class="animated fadeInDown" src="/static/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
 	</a>
 	<form name="search" action="/" method="get">
 		<input id="transcription" type="text" name="keywords" placeholder="Search me up">
