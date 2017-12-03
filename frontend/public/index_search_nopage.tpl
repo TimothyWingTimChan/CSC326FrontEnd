@@ -3,7 +3,6 @@
 
 <head>
 <title>TTTSearch</title>
-	<base href="http://localhost:8080/">
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
@@ -239,7 +238,7 @@ td2 {
 <div id="background">
 <div id = "image_pos">
 	<div id = "logo">
-		<a href="http://localhost:8080">
+		<a href="/">
 		<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:225px;height:80px">
 		</a>
 	</div>

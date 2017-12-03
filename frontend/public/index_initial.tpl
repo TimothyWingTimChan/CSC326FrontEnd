@@ -3,7 +3,6 @@
 
 <head>
 <title>TTTSearch</title>
-	<base href="http://localhost:8080/">
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
@@ -166,7 +165,7 @@ p1 {
 
 <title>TTTSearch</title>
 <div id="search_items">
-	<a href="localhost:8080">
+	<a href="/">
 		<img class="animated fadeInDown" src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
 	</a>
 	<form name="search" action="/" method="get">
