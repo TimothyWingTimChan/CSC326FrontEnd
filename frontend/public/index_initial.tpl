@@ -38,7 +38,7 @@
 img {
 	position: relative;
 	margin-top: 10%;
-	left: 50%;
+	left: 7%;
 	transform: translateX(-50%)
 }
 input[type=submit] {
