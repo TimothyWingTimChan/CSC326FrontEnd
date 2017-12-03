@@ -241,7 +241,7 @@ if (window.SpeechRecognition === null) {
 			ignore_onend = true;
 		}
 		alert('Speech Recognition error!');
-    console.log(error);
+    console.log(event);
 	};
 
 	//a callback function when the Speech Recognition ended
