@@ -143,7 +143,7 @@ def error404(error):
 	return template('error.tpl')
 
 @route('/get_words')
-def get_drugs():
+def get_suggestion_words():
 	# print '\n'
 	# print request.query.term
 	input_terms = request.query.term
