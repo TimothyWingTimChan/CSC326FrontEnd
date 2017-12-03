@@ -442,5 +442,5 @@ def home():
 		#return getHtmlfile()
 		return template('index_initial.tpl',user_name = name, user_email = email)
 
-# run(app=main_app, host='0.0.0.0', port=80, debug=True)
-run(app=main_app, host='localhost', port=8080, debug=True)
+run(app=main_app, host='0.0.0.0', port=80, debug=True)
+# run(app=main_app, host='localhost', port=8080, debug=True)
