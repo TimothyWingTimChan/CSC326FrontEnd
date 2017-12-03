@@ -38,17 +38,35 @@
 img {
 	position: relative;
 	margin-top: 10%;
-	left: 50%;
+	left: 7%;
 	transform: translateX(-50%)
 }
 input[type=submit] {
 	width: 100%;
-	max-width: 525px;
+	max-width: 410px;
 	min-width: 325px;
 	height: 35px;
 	background-color: #3b8686;
 	color: white;
 	padding: 7px 10px;
+	margin: auto;
+	border: 3px solid white;
+	border-radius: 10px;
+	cursor: pointer;
+	position: relative;
+	margin: auto;
+	top: 0;
+	left: 0%;
+	right: 0;
+	bottom: 30px;
+}
+button {
+	width: 10%;
+	max-width: 35px;
+	min-width: 0px;
+	height: 35px;
+	/*color: #3b8686;*/
+	padding: 1px 2px;
 	margin: auto;
 	border: 3px solid white;
 	border-radius: 10px;

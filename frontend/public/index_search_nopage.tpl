@@ -61,6 +61,9 @@ body {
 }
 #content {
 	display: table-row;
+	top: 120px;
+	left: 0;
+	bottom: 120px;
 	width: 100%;
 	height: 100%;
 	z-index: -1;
@@ -117,6 +120,22 @@ input[type=submit] {
 	cursor: pointer;
 	position: absolute;
 	top: 40px;
+}
+button {
+	width: 3%;
+	max-width: 525px;
+	min-width: 0px;
+	height: 35px;
+	color: green;
+	padding: 7px 10px;
+	margin: auto;
+	border: 3px solid #f0f0f0;
+	background-color: #f0f0f0;
+	padding: 1px 0px;
+	cursor: pointer;
+	position: absolute;
+	top: 40px;
+	left: 490px;
 }
 input[type=submit]#login_out {
 	max-width: 50px;
