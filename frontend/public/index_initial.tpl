@@ -38,10 +38,10 @@
 img {
 	position: relative;
 	margin-top: 10%;
-	/*left: 50%;*/
+	left: 7%;
 	transform: translateX(-50%)
 }
-input[type=submit]{
+input[type=submit] {
 	width: 100%;
 	max-width: 410px;
 	min-width: 325px;
@@ -60,7 +60,7 @@ input[type=submit]{
 	right: 0;
 	bottom: 30px;
 }
-button {
+#button-play-ws {
 	width: 10%;
 	max-width: 35px;
 	min-width: 0px;
@@ -166,7 +166,7 @@ p1 {
 <title>TTTSearch</title>
 <div id="search_items">
 	<a href="/">
-		<img class="animated fadeInDown" src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
+		<img class="animated fadeInDown" src="/static/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:400px;height:142px">
 	</a>
 	<form name="search" action="/" method="get">
 		<input id="transcription" type="text" name="keywords" placeholder="Search me up">

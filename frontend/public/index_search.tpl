@@ -12,6 +12,12 @@
   			crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <style>
+body {
+	display: table; 
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
 #image_pos {
 	position: relative;
 	margin-top: 20px;
@@ -37,7 +43,7 @@
 	bottom: 0;
 }
 #background {
-	position: fixed;
+	display: table-row;
 	top: 0px;
 	left: 0px;
 	width: 100%;
@@ -51,14 +57,31 @@
 	width: 100%;
 	height: 80px;
 	background-color: #f0f0f0;
+	z-index: 1;
 }
 #content {
-	position: fixed;
+	display: table-row;
 	top: 120px;
 	left: 0;
 	bottom: 120px;
 	width: 100%;
 	height: 100%;
+	z-index: -1;
+	overflow: auto;
+	margin-bottom: 80px;
+}
+#content_results {
+	width: 100%;
+	z-index: -1;
+	margin-bottom: 120px;
+}
+#spell_correction {
+	width: 100%;
+	margin-bottom: 15px;
+}
+#special_feature {
+	width: 100%; 
+	float: left;
 	z-index: -1;
 }
 #content_bot {
@@ -98,7 +121,7 @@ input[type=submit] {
 	position: absolute;
 	top: 40px;
 }
-button {
+#button-play-ws {
 	width: 3%;
 	max-width: 525px;
 	min-width: 0px;
@@ -179,6 +202,18 @@ p1 {
 p2 {
 	font-family: helvetica;
 	position: relative;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	margin-left: 20px;
+	top: 20px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+p3 {
+	font-family: helvetica;
+	color: red;
+	position: relative;
 	margin-top: 20px;
 	margin-left: 20px;
 	margin-bottom: 20px;
@@ -186,6 +221,51 @@ p2 {
 	left: 0;
 	right: 0;
 	bottom: 0;
+}
+p4 {
+	font-family: helvetica;
+	color: black;
+	position: relative;
+	font-size: 30px;
+	padding: 20px 20px;
+	float: left;
+	border: 2px solid;
+	border-color: #f0f0f0;
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	top: 10px;
+	box-shadow: 2px 2px 1px #f9f9f9;
+}
+p5 {
+	font-family: helvetica;
+	color: grey;
+	position: relative;
+	font-size: 22px;
+}
+p6 {
+	font-family: helvetica;
+	color: black;
+	position: relative;
+	font-size: 17px;
+	font-weight: bold;
+	padding: 20px 20px;
+	float: left;
+	border: 2px solid;
+	border-color: #f0f0f0;
+	margin-top: 20px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	top: 10px;
+	box-shadow: 2px 2px 1px #f9f9f9;
+}
+p7 {
+	font-family: helvetica;
+	color: grey;
+	position: relative;
+	font-size: 13px;
 }
 td1 {
 	display: block;
@@ -225,6 +305,25 @@ td2 {
 	bottom: 30px;
 	width: 100%;
 }
+.search_button button {
+	color: #3b8686;
+	font-family: helvetica;
+	font-size: 16px;
+    text-decoration: none;
+	background-color: transparent;
+	border: none;
+	background: none;
+}
+.search_button button:active {
+	outline: none;
+	border: none;
+}
+.search_button button:focus {
+	outline: 0;
+}
+.search_button button:hover {
+	cursor: pointer;
+}
 
 </style>
 </head>
@@ -234,7 +333,7 @@ td2 {
 <div id = "image_pos">
 	<div id = "logo">
 		<a href="/">
-		<img src="/public/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:225px;height:80px">
+		<img src="/static/csc326-logo.png" alt="ERROR IMAGE NOT FOUND" style="width:225px;height:80px">
 		</a>
 	</div>
 	<div id = "searchbox_pos">
